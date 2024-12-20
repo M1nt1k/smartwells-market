@@ -1,0 +1,388 @@
+/* БЛОК С ПОВТОРЯЮЩИМИСЯ СТИЛЯМИ */
+
+.sw-width-wrapper {
+    padding: 60px 80px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: space-between; */
+}
+
+.sw-title {
+    margin-bottom: 20px;
+}
+
+.sw-answer {
+    width: 60%;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.sw-description {
+    text-align: left;
+    font-size: 18px;
+    padding: 5px;
+    margin-bottom: 10px;
+
+}
+
+.sw-subtitle {
+    margin-bottom: 20px;
+}
+
+.sw-sections {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sw-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sw-image-block {
+    margin-right: 120px;
+}
+
+.sw-inp {
+    margin-bottom: 15px;
+    width: 450px;
+}
+
+.sw-input-form {
+    padding: 5px 10px;
+
+    width: 100%;
+
+    border-radius: 5px;
+    border: #d92020 2px solid;
+}
+
+.sw-input-form:focus {
+    outline: none;
+    box-shadow: inset 2px 2px 4px #c0c1c2, inset -2px -2px 4px #ffffff; /* Вдавленный эффект */
+}
+
+.sw-input-form::placeholder {
+    color: #aaa; /* Цвет текста в placeholder */
+    font-style: italic; /* Курсив для placeholder */
+}
+
+
+/* БЛОК СТИЛЕЙ ДЛЯ КАРУСЕЛИ */
+
+.carousel {
+    max-height: 700px; /* Ограничение высоты карусели */
+    overflow: hidden;  /* Скрытие частей, выходящих за границы */
+}
+
+.carousel img {
+    max-height: 700px; /* Ограничение высоты изображения */
+    object-fit: cover; /* Обрезка изображения, чтобы заполнить контейнер */
+    width: 100%;       /* Растягиваем изображение по ширине */
+}
+
+.carousel-item .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Полупрозрачный чёрный цвет */
+    z-index: 1; /* Поверх изображения */
+}
+
+.carousel-caption {
+    position: absolute;
+    z-index: 2; /* Поверх слоя затемнения */
+    color: #fff; /* Белый текст для контраста */
+}
+
+
+/* БЛОК СТИЛЕЙ ДЛЯ ПРЕИМУЩЕСТВ */
+
+.advantages-sections {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.advantages-image {
+    width: 960px;
+}
+
+.advantages-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.advantages-ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.advantages-ul li {
+    position: relative;
+    padding-left: 30px;
+}
+
+.advantages-ul li::before {
+    content: "\2022";
+    color: #d92020;
+    font-size: 20px;
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+}
+
+.li-text-title {
+    font-weight: bold;
+    font-size: 16px;
+
+    margin-bottom: 5px;
+}
+
+.li-text {
+    font-size: 14px;
+
+    margin-bottom: 20px;
+}
+
+
+/* БЛОК СТИЛЕЙ ДЛЯ КУРСОВ */
+
+.courses {
+    background: #f6f6f8;
+}
+
+.courses-sections {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    width: 100%;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.courses-card {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+
+    align-items: center;
+    margin-bottom: 50px;
+    margin-left: 28px;
+    text-align: center;
+
+    background: #ffffff;
+    border-radius: 5px;
+    border: #d92020 2px solid;
+}
+
+.courses-card:first-child {
+    margin-left: 0;
+}
+
+.courses-card-img {
+    object-fit: cover;
+    width: 100%;
+    height: 230px;
+
+    border: none;
+    border-radius: 5px 5px 0 0;
+}
+
+.courses-card-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 30px;
+    max-width: 80%;
+}
+
+.courses-card-desc {
+    font-size: 16px;
+    max-width: 80%;
+    margin-top: 15px;
+    flex: 1 1;
+}
+
+.courses-card-btn {
+    margin: 40px 0 ;
+}
+
+.courses-card-btn:hover {
+    color: #fff;
+}
+
+.courses-card-btn:active {
+    background-color: #710303;
+    transform: scale(0.98);
+    color: #fff;
+}
+
+.courses-btn-link {
+    text-decoration: none;
+}
+
+.courses-btn-link:hover {
+    color: #fff;
+}
+
+.courses-btn-link:active {
+    background-color: #710303;
+    transform: scale(0.98);
+    color: #fff;
+    border-radius: 5px;
+}
+
+.courses-cta {
+    font-size: 16px;
+    font-style: italic;
+    margin-bottom: 40px;
+}
+
+
+/* БЛОК СТИЛЕЙ С ПРОГРАММОЙ */
+
+.drilling-software {
+    position: relative;
+
+    background-image: url('../images/main/program/Innoprom.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    color: #fff;
+}
+
+.drilling-software .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+.drilling-software .sw-width-wrapper {
+    position: relative;
+    z-index: 2;
+}
+
+.drilling-software-image-block {
+    width: 640px;
+}
+
+.drilling-software-ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.drilling-software-ul li {
+    position: relative;
+    padding-left: 30px;
+}
+
+.drilling-software-ul li::before {
+    content: "\2022";
+    color: #d92020;
+    font-size: 20px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.drilling-software-cta {
+    text-align: center;
+    width: 70%;
+    font-size: 16px;
+    font-style: italic;
+    margin: 20px 0;
+}
+
+
+/* БЛОК СТИЛЕЙ ДЛЯ КОНТАКТНОЙ ИНФОРМАЦИИ */
+
+.contacts {
+    background: #f6f6f8;
+}
+
+.contacts-sections {
+    justify-content: center;
+}
+
+.contacts-info-section {
+    max-width: 40%;
+}
+
+.contacts-form-section {
+    padding: 20px;
+
+    border: #d92020 2px solid;
+    border-radius: 7px;
+
+    background: #ffffff;
+}
+
+.contacts-cta {
+    font-style: italic;
+    font-size: 18px;
+    margin-top: 30px;
+}
+
+.about-section {
+    width: 70%;
+    margin-right: 20px;
+}
+
+.about-info .sw-width-wrapper {
+    padding-top: 0;
+}
+
+.about-info-sections {
+    width: 100%;
+}
+
+.about-info-company {
+    width: 100%;
+}
+
+.about-info-company div {
+    text-align: start;
+    width: 100%;
+}
+
+.about-image-block {
+    margin-right: 0;
+    /* width: 350px; */
+}
+
+.about-image {
+    height: 150px;
+    /* width: 350px; */
+}
+
+.about-info-company-param-bold {
+    /* font-weight: bold; */
+    color: #909090;
+}
+
+.map {
+    width: 100%;
+}
+
+
+.sw-contract .sw-subtitle {
+    margin-top: 20px;
+    text-align: center;
+}

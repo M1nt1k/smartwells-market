@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static "assets/css/users.css"%}" />
+{% endblock %}
+
+{% block content %}
+<div class="sw-login">
+    <div class="sw-width-wrapper">
+        <h3 class="sw-login-title sw-title">Зарегистрироваться</h3>
+
+        <form method="post" action="{% url 'users:signup' %}" class="sw-login-form">
+            {% csrf_token %}
+            <div class="sw-login-form-field">
+                <label class="sw-field-label" for="id_first_name">Имя</label>
+                <input class="sw-field-input" type="text" name="first_name" maxlength="150" required="" id="id_first_name">
+            </div>
+            <div class="sw-login-form-field">
+                <label class="sw-field-label" for="id_last_name">Фамилия</label>
+                <input class="sw-field-input" type="text" name="last_name" maxlength="150" required="" id="id_last_name">
+            </div>
+            <div class="sw-login-form-field">
+                <label class="sw-field-label" for="id_username">Имя пользователя</label>
+                <input class="sw-field-input" type="text" name="username" maxlength="150" required="" id="id_username">
+            </div>
+            <div class="sw-login-form-field">
+                <label class="sw-field-label" for="id_email">Адрес электронной почты</label>
+                <input class="sw-field-input" type="text" name="email" maxlength="254" required="" id="id_email">
+            </div>
+            <div class="sw-login-form-field">
+                <label class="sw-field-label" for="id_password1">Пароль</label>
+                <input class="sw-field-input" type="password1" name="password" required="" id="id_password1">
+            </div>
+            <div class="sw-login-form-field">
+                <label class="sw-field-label" for="id_password2">Подтверждение пароля</label>
+                <input class="sw-field-input" type="password" name="password2" required="" id="id_password2">
+            </div>
+
+            {% if form.errors %}
+                <div class="sw-login-form-alert alert alert-danger">
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                    <span class="error-message">{{ error }}</span>
+                    {% endfor %}
+                {% endfor %}
+                </div>
+            {% endif %}
+            <button class="sw-login-form-btn" type="submit">Зарегистрироваться</button>
+        </form>
+
+        <a class="sw-login-form-sublink" href="{% url 'users:login' %}">Есть аккаунт?</a>
+    </div>
+</div>
+{% endblock %}
+
+
+<div class="form-field">
+  <label for="">:</label> <input type="text" name="last_name" maxlength="150" id="id_last_name">
+</div>
+
+<div class="form-field">
+  <label for="">:</label> <input type="email" name="email" maxlength="254" id="id_email">
+</div>
+
+

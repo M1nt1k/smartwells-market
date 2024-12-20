@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <section class="about">
+        <div class="sw-width-wrapper">
+            <h1 class="sw-title">О компании</h1>
+    
+            <div class="about-sections sw-sections">
+                <div class="about-section sw-section">
+                    <div class="sw-description">Интэк Инжинирнг компания, активно развивающая свой бизнес, связанный с оказанием услуг нефтегазовым и нефтесервисным компаниям на территории Российской Федерации и за её пределами (СНГ и дальнее зарубежье).</div>
+                <div class="sw-description">Нашими основными задачами являются оказание качественных высокотехнологичных услуг, дающих выгоду нашим партнёрам благодаря инновационным технологиям и нашему профессионализму.</div>
+                <div class="sw-description">Основными направлениями деятельности являются услуги, связанные с применением инновационных технологий при строительстве скважин, интенсификации добычи нефти и газа, внедрение энергоэффективных технологий, решение экологических вопросов, а также предоставление и производство уникального бурового оборудования.</div>
+                </div>
+
+                <div class="about-image-block sw-image-block">
+                    <img src="{% static "images/logo_i_i.webp" %}" alt="innfes-logo" class="about-image">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="about-info">
+        <div class="sw-width-wrapper">
+            <div class="about-info-sections sw-sections">
+                <div class="about-info-company sw-section">
+                    <h4 class="about-info-company-subtitle sw-subtitle">Реквизиты</h4>
+
+                    <div>
+                        {% for item in company_info_params %}
+                            <div class="about-info-company-param">
+                                <span class="about-info-company-param-bold">{{ item.param}}</span> {{ item.info}}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="map">
+        <div style="position:relative;overflow:hidden;">
+            <a href="https://yandex.ru/maps/55/tyumen/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">Тюмень</a>
+            <a href="https://yandex.ru/maps/55/tyumen/house/ulitsa_chekistov_38/YkwYcAJjQEMCQFttfX1weX5mZg==/?from=api-maps&ll=65.654995%2C57.118252&origin=jsapi_2_1_79&utm_medium=mapframe&utm_source=maps&z=18" style="color:#eee;font-size:12px;position:absolute;top:14px;">Тюмень — Яндекс Карты</a>
+            <iframe src="https://yandex.ru/map-widget/v1/?from=api-maps&ll=65.654995%2C57.118252&mode=whatshere&origin=jsapi_2_1_79&whatshere%5Bpoint%5D=65.654135%2C57.118321&whatshere%5Bzoom%5D=17&z=18" width="100%" height="600" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>
+        </div>
+    </section>
+{% endblock %}

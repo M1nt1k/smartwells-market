@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+
+<section class="store">
+    <div class="sw-width-wrapper">
+        <h3 class="store-title sw-title">Каталог курсов</h3>
+
+        <div class="courses-sections sw-sections">
+            {% for item in page_obj %}
+            <div class="courses-card">
+                {% if item.image %}
+                    <img src="{{ item.image.url }}" alt="{{ item.title }}" class="courses-card-img">
+                {% else %}
+                    <img src="{% static "images/item_default.svg" %}" alt="Курс" class="courses-card-img"/>
+                {% endif %}
+                <div class="courses-card-title">{{ item.title }}</div>
+                <div class="courses-card-desc">{{ item.description|truncatechars:150 }}</div>
+                <div class="courses-card-tags sw-tag">
+                    <object> 
+                        {% for tag in item.tags.all %}
+                            <a href="{% url 'academy:tag_details' tag.slug %}" class="courses-card-tag sw-tag">{{ tag }}</a>
+                            {% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                    </object>
+                </div>
+                <a href="{% url 'academy:item_details' item.slug %}" class="sw-item">
+                    <button class="courses-card-btn store-card-btn sw-btn">Подробнее</button>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if page_obj %}
+        <div style="text-align: center;">
+            {% include 'includes/paginator.html' %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %} 

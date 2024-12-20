@@ -1,0 +1,8 @@
+db.sqlite3
+2021
+sync_script.py
+db*
+db.*
+*.db
+__pychache__
+.env

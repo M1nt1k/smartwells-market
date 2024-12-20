@@ -1,0 +1,22 @@
+.sw-avatar {
+    width: 200px;
+    margin-bottom: 30px;
+}
+
+.profile-user-welcome {
+    font-size: 22px;
+}
+
+.profile-info-block {
+    display: flex;
+    flex-direction: row;
+    margin: 0 10px;
+}
+
+.profile-info-block-input {
+    margin: 0 10px;
+}
+
+.profile-info-block-title {
+    width: 100px;
+}

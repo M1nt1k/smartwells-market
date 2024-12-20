@@ -1,0 +1,28 @@
+{% load static %}
+<div class="sw-header">
+    <div class="sw-header-left">
+        <img oncontextmenu="return false;" src="{% static "images/sw_icon_primary.png" %}" alt="LOGO" class="sw-header-logo-img">
+
+        <ul class="sw-header-ul">
+            <li class="sw-header-ul-link"><a href="/">Главная</a></li>
+            <li class="sw-header-ul-link"><a href="/news/">Новости</a></li>
+            <li class="sw-header-ul-link"><a href="/products/">Продукты</a></li>
+            <li class="sw-header-ul-link"><a href="/academy/">Академия</a></li>
+            <li class="sw-header-ul-link"><a href="/about/">О нас</a></li>
+        </ul>
+    </div>
+
+    {% if request.user.is_authenticated %}
+        <div class="sw-header-user">
+            <a href="{% url 'cart:cart' %}">
+                <img src="{% static 'images/cart.png' %}" style="width: 32px; height: 32px;" alt="cart">
+            </a>
+
+            <a href="{% url 'users:profile' %}">
+                <img src="{% static 'images/user.png' %}" style="width: 32px; height: 32px;" alt="cart">
+            </a>
+        </div>
+    {% else %}
+        <button class="sw-header-sign-up"><a href="{% url 'users:keycloak_login' %}" style="text-decoration: none;">Войти</a></button>
+    {% endif %}
+</div>

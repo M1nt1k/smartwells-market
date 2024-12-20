@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+    <section class="hero">
+        <div id="carouselMain" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for item in carousel_items %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <div class="overlay"></div>
+                    <img src="{{ item.image_url }}" class="d-block w-100" alt="{{ item.title }}">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>{{ item.title }}</h5>
+                        <p>{{ item.description }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselMain" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselMain" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <section class="advantages">
+        <div class="sw-width-wrapper">
+            <h3 class="advantages-title sw-title">Почему выбирают нас?</h3>
+            <p class="advantages-answer sw-answer">Мы помогаем предприятиям буровой отрасли добиваться максимальных результатов благодаря комплексному подходу: обучению, инновационным технологиям и поддержке на всех этапах.</p>
+
+            <div class="advantages-sections sw-sections">
+                <div class="advantages-image-block sw-image-block">
+                    <img src="{% static "assets/images/main/advantages/analitics.jpg" %}" alt="advantages" class="advantages-image">
+                </div>
+                <div class="advantages-text sw-section">
+                    <h4 class="advantages-subtitle sw-subtitle">Наши преимущества</h4>
+                    <ul class="advantages-ul ">
+                        {% for item in advantages_items %}
+                        <li>
+                            <div class="advantages-ul-li-text">
+                                <div class="li-text-title">{{ item.title }}</div>
+                                <div class="li-text">{{ item.text }}</div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="courses">
+        <div class="sw-width-wrapper">
+            <h3 class="courses-title sw-title">Выберите курс, который подходит именно вам!</h3>
+            <p class="courses-answer sw-answer">Мы предлагаем обучение для специалистов любого уровня: от начинающих до опытных профессионалов. Наши программы ориентированы на реальные задачи отрасли и разработаны практикующими экспертами. Получите ценные навыки и сертификат, подтверждающий вашу квалификацию.</p>
+
+            <div class="courses-sections sw-sections">
+                {% for item in page_obj %}
+                <div class="courses-card">
+                    {% if item.image %}
+                        <img src="{{ item.image.url }}" alt="{{ item.title }}" class="courses-card-img">
+                    {% else %}
+                        <img src="{% static "images/item_default.svg" %}" alt="Курс" class="courses-card-img"/>
+                    {% endif %}
+                    <div class="courses-card-title">{{ item.title }}</div>
+                    <div class="courses-card-desc">{{ item.description|truncatechars:150 }}</div>
+                    <div class="courses-card-tags sw-tag">
+                        <object> 
+                            {% for tag in item.tags.all %}
+                                <a href="{% url 'academy:tag_details' tag.slug %}" class="courses-card-tag sw-tag">{{ tag }}</a>
+                                {% if not forloop.last %},{% endif %}
+                            {% endfor %}
+                        </object>
+                    </div>
+                    <a href="{% url 'academy:item_details' item.slug %}" class="sw-item">
+                        <button class="courses-card-btn store-card-btn sw-btn">Подробнее</button>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="courses-cta">Заинтересовал какой-то из курсов? Тогда Вы можете посмотреть полный каталог!</div>
+
+            <a href="{% url 'academy:home' %}" class="courses-btn-link">
+                <button class="courses-btn sw-btn">Посмотреть полный каталог курсов</button>
+            </a>
+        </div>
+    </section>
+
+    <section class="drilling-software">
+        <div class="overlay"></div>
+        <div class="sw-width-wrapper">
+            <h3 class="drilling-software-title sw-title">Оптимизируйте процессы бурения с нашими инновационными решениями</h3>
+            <p class="drilling-software-answer sw-answer">Наше программное обеспечение создано для повышения эффективности буровых операций. Оно помогает планировать, анализировать и управлять проектами с точностью и минимальными рисками. Интеграция с вашими существующими системами и круглосуточная поддержка делают наши решения незаменимыми в любой ситуации.</p>
+
+            <div class="drilling-software-sections sw-sections">
+                <div class="drilling-software-text sw-section">
+                    <h4 class="drilling-software-subtitle sw-subtitle">Почему мы?</h4>
+                    <ul class="drilling-software-ul">
+                        {% for item in program_items %}
+                        <li>
+                            <div class="drilling-software-ul-li-text">
+                                <span class="li-text-title">{{ item.title }}:</span>
+                                <span class="li-text">{{ item.text }}</span>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    
+                    <div class="drilling-software-cta">Хотите узнать, как наше ПО поможет вашему бизнесу? Узнайте бесплатно прямо сейчас</div>
+        
+                    <a href="#contacts" class="drilling-software-btn-link">
+                        <button class="drilling-software-btn sw-btn">Связаться с консультантом</button>
+                    </a>
+                </div>
+
+                <div class="drilling-software-image-block sw-image-block">
+                    <img src="{% static "assets/images/main/program/Mockup.png" %}" alt="Program" class="drilling-software-image">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="news">
+
+    </section>
+
+    <sections class="contacts">
+        <div class="sw-width-wrapper" id="contacts">
+            <div class="contacts-sections sw-sections">
+                <div class="contacts-info-section sw-section">
+                    <h3 class="contacts-title sw-title">Свяжитесь с нами</h3>
+                    <p class="contacts-answer sw-answer">Мы всегда готовы ответить на ваши вопросы, помочь с выбором курсов или рассказать больше о наших продуктах. Заполните форму, и наш специалист свяжется с вами в ближайшее время.</p>
+                </div>
+                <div class="contacts-form-section sw-section">
+                    <h4 class="contacts-title sw-subtitle">Оставить контакты</h4>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="contacts-inp sw-inp">
+                            <input class="contacts-inp-name sw-input-form" type="text" name="name" placeholder="Имя" required id="id_name">
+                        </div>
+                        <div class="contacts-inp sw-inp">
+                            <input class="contacts-inp-email sw-input-form" type="email" name="email" placeholder="E-Mail" required id="id_email">
+                        </div>
+                        <div class="contacts-inp sw-inp">
+                            <textarea class="contacts-inp-message sw-input-form" name="message" id="id_message" required placeholder="Введите сообщение здесь..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="contacts-send-btn sw-btn">Оставить заявку</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="contacts-cta">
+                «Мы на связи! Задайте вопрос или оставьте запрос — мы поможем вам решить вашу задачу.»
+            </div>
+        </div>
+    </sections>
+    
+    <section class="cta">
+
+    </section>
+{% endblock %}

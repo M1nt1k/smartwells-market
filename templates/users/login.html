@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static "assets/css/users.css"%}" />
+{% endblock %}
+
+{% block content %}
+<div class="sw-login">
+    <div class="sw-width-wrapper">
+        <h3 class="sw-login-title sw-title">Войти на сайт</h3>
+
+        <form method="post" class="sw-login-form">
+            {% csrf_token %}
+            <div class="sw-login-form-field">
+                <label class="sw-field-label" for="id_username">Имя пользователя</label>
+                <input class="sw-field-input" type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">
+            </div>
+            <div class="sw-login-form-field">
+                <label class="sw-field-label" for="id_password">Пароль</label>
+                <input class="sw-field-input" type="password" name="password" autocomplete="current-password" required="" id="id_password">
+            </div>
+
+            {% if form.errors %}
+                <div class="sw-login-form-alert alert alert-danger">
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                    <span class="error-message">{{ error }}</span>
+                    {% endfor %}
+                {% endfor %}
+                </div>
+            {% endif %}
+            <button class="sw-login-form-btn" type="submit">Войти</button>
+        </form>
+
+        <a class="sw-login-form-sublink" href="{% url 'users:password_reset_form' %}">Забыли пароль?</a>
+        <a class="sw-login-form-sublink" href="{% url 'users:signup' %}">У вас нет аккаунта?</a>
+    </div>
+</div>
+{% endblock %}

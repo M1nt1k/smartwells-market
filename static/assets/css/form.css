@@ -1,0 +1,69 @@
+.sw-login-form {
+    margin-top: 20px;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.sw-login-form-field {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.sw-field-input {
+    background: #fff;
+
+    padding: 10px;
+    
+    border: #b40303 2px solid;
+    border-radius: 5px;
+    
+    width: 300px;
+}
+
+.sw-field-input:focus {
+    outline: none;
+    box-shadow: inset 2px 2px 4px #c0c1c2, inset -2px -2px 4px #ffffff; /* Вдавленный эффект */
+}
+
+.sw-field-input::placeholder {
+    color: #aaa; /* Цвет текста в placeholder */
+    font-style: italic; /* Курсив для placeholder */
+}
+
+.sw-field-input:active {
+    border: #8f0202 2px solid;
+}
+
+.sw-field-label {
+    position: absolute;
+
+    top: -10px;
+    left: 10px;
+
+    background: #fff;
+
+    padding: 0 5px;
+}
+
+.sw-login-form-alert {
+    margin-top: 10px;
+}
+
+.sw-login-form-btn {
+    padding: 10px 30px;
+
+    border-radius: 5px;
+    background-color: #b40303;
+    color: #fff;
+    border: none;
+
+    margin-bottom: 50px;
+}
+
+.sw-login-form-sublink {
+    text-decoration: underline;
+    color: #b5b5b5;
+}

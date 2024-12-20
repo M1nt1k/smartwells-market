@@ -1,0 +1,142 @@
+@import url("reset.css");
+@import url("landing-main.css");
+@import url("store.css");
+@import url("form.css");
+@import url("profile.css");
+
+html,
+body,
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sw-header {
+    background: #ffffff;
+    border-bottom: solid 2px #d60000;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 10px 50px;
+
+    color: #a80101;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.sw-header-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.sw-header-logo-img {
+    width: 64px;
+}
+
+.sw-header-ul {
+    list-style: none;
+    margin: 0;
+}
+
+.sw-header-ul-link {
+    display: inline;
+    margin-right: 10px;
+}
+
+.sw-header-ul-link:hover {
+    color: #a10202;
+}
+
+.sw-header-ul-link a {
+    text-decoration: none;
+}
+
+.sw-header-sign-up {
+    background-color: #b40303;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.sw-header-sign-up:hover {
+    background-color: #980101;
+}
+
+.sw-header-sign-up:active {
+    background-color: #710303;
+    transform: scale(0.98);
+}
+
+.sw-header-user {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.sw-header-user a {
+    margin-left: 15px;
+}
+
+.sw-footer {
+    min-height: 400px;
+    padding: 30px 150px;
+    background: #ffffff;
+    border-top: #d60000 2px solid;
+}
+
+.sw-footer-logo {
+    margin: 20px 0;
+    height: 70px;
+    width: auto;
+}
+
+.sw-footer-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+.sw-footer-info-panel {
+    flex-direction: column;
+}
+
+.sw-footer-subtext {
+    color: #b7b7b7;
+    text-align: justify;
+}
+
+.sw-footer-cookie {
+    color: #b7b7b7;
+    width: 100%;
+    text-align: center;
+    margin-top: 110px;
+}
+
+
+.sw-btn {
+    background-color: #b40303;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.sw-btn:hover {
+    background-color: #980101;
+}
+
+.sw-btn:active {
+    background-color: #710303;
+    transform: scale(0.98);
+}

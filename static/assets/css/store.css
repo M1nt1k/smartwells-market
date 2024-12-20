@@ -1,0 +1,75 @@
+.courses-card-tags {
+    margin: 20px 10px 0;
+}
+
+.courses-card-tag,
+.sw-tag {
+    padding: 5px 7px;
+
+    border-radius: 10px;
+    border: #b40303 1px solid;
+    
+    background-color: #b40303;
+
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.store-card-btn {
+    margin: 20px 0 40px;
+}
+
+.courses-sections {
+    flex-wrap: wrap;
+}
+
+
+.item-details-sections {
+    width: 100%;
+    justify-content: start;
+    align-items: start;
+}
+
+.item-detail-img {
+    max-width: 40%;
+}
+
+.item-detail-section {
+    width: 100%;
+    padding: 30px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.item-detail-categories {
+    margin-bottom: 10px;
+}
+
+.item-detail-description {
+    flex: 1 1 auto;
+    margin-bottom: 30px;
+}
+
+.item-detail-price {
+    margin-bottom: 20px;
+}
+
+.item-detail-price .discount {
+    color: #aaaaaa;
+    text-decoration: line-through;
+}
+
+.item-detail-buy {
+
+}
+
+.item-detail-buy-btn {
+    text-decoration: none;
+    color: #ffffff;
+
+    background-color: #b40303;
+    border-radius: 5px;
+
+    padding: 5px 10px;
+}
