@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <section class="develop">
+        <div class="sw-width-wrapper" >
+            <h3 class="sw-title">Новости</h3>
+            <div class="list-group w-100">
+                {% for article in articles %}
+                <a href="{{ article.get_absolute_url }}" class="list-group-item list-group-item-action w-100">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="mb-1">{{ article.title }}</h5>
+                        <small class="text-muted">{{ article.published_date|date:"d.m.Y" }}</small>
+                    </div>
+                    <p class="mb-1 text-truncate">{{ article.content }}</p>
+                    {% if article.author %}
+                    <small class="text-muted">Автор: {{ article.author }}</small>
+                    {% endif %}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

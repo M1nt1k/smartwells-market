@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+
+<div class="item-detail">
+    <div class="sw-width-wrapper">
+        <div class="item-details-sections sw-sections">
+            {% if item.image %}
+                <img class="item-detail-img" src="{{ item.image.url }}" alt=""/>
+            {% else %}
+                <img class="item-detail-img" src="{% static "images/item_default.svg" %}" alt="" />
+            {% endif %}
+
+            <div class="item-detail-section">
+                <h2 class="item-detail-title sw-title">{{ item.title }}</h2>
+
+                <div class="item-detail-categories">
+                    Категории: 
+                    {% for tag in item.tags.all %}
+                        <a class="sw-tag" href="{% url 'academy:tag_details' tag.slug %}">{{ tag }}</a>
+                        {% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="item-detail-description">
+                    Описание:<br>
+                    {{ item.description }}
+                </div>
+
+                <div class="item-detail-price">
+                    Цена:&nbsp;
+                    {% if item.old_price %}
+                        <p>{{ item.price }}&nbsp;₽ <span class="discount">&nbsp;{{ item.old_price }}&nbsp;</span></p>
+                    {% else %}
+                        <p>{{ item.price }} ₽</p>
+                    {% endif %}
+                </div>
+
+                <div class="item-detail-buy">
+                    <a href="{% url 'cart:add_to_cart' item.slug %}" class="item-detail-buy-btn" style="margin-top:10px;">
+                        Купить
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

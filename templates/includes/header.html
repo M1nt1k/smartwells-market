@@ -4,11 +4,11 @@
         <img oncontextmenu="return false;" src="{% static "images/sw_icon_primary.png" %}" alt="LOGO" class="sw-header-logo-img">
 
         <ul class="sw-header-ul">
-            <li class="sw-header-ul-link"><a href="/">Главная</a></li>
-            <li class="sw-header-ul-link"><a href="/news/">Новости</a></li>
-            <li class="sw-header-ul-link"><a href="/products/">Продукты</a></li>
-            <li class="sw-header-ul-link"><a href="/academy/">Академия</a></li>
-            <li class="sw-header-ul-link"><a href="/about/">О нас</a></li>
+            <li class="sw-header-ul-link"><a href="{% url 'landing:index' %}">Главная</a></li>
+            <li class="sw-header-ul-link"><a href="{% url 'news:article_list' %}">Новости</a></li>
+            <!-- <li class="sw-header-ul-link"><a href="{% url 'landing:products' %}">Продукты</a></li> -->
+            <li class="sw-header-ul-link"><a href="{% url 'academy:home' %}">Академия</a></li>
+            <li class="sw-header-ul-link"><a href="{% url 'landing:about' %}">О нас</a></li>
         </ul>
     </div>
 

@@ -1,5 +1,67 @@
 {% extends "base.html" %}
 
+{% block css %}
+<style>
+    .program-card {
+        border: 1px solid #cdd0d4;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .program-card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .price {
+        font-size: 18px;
+        color: #9f0000;
+        font-weight: bold;
+    }
+
+    .old-price {
+        text-decoration: line-through;
+        color: gray;
+    }
+
+    .discount-badge {
+        background: #ffc107;
+        color: #000;
+        font-size: 12px;
+        padding: 3px 6px;
+        border-radius: 3px;
+    }
+
+    .btn-primary {
+        background-color: #dc3545 !important; /* Красный */
+        border-color: #dc3545 !important;
+    }
+
+    .btn-primary:hover {
+        background-color: #c82333 !important; /* Более темный красный */
+        border-color: #bd2130 !important;
+    }
+
+    .text-primary {
+        color: #dc3545 !important; /* Красный текст */
+    }
+
+    .bg-primary {
+        background-color: #dc3545 !important; /* Красный фон */
+    }
+
+    /* Карточки */
+    .card {
+        border: 1px solid #dc3545 !important; /* Красная рамка */
+    }
+
+    .card-header {
+        background-color: #dc3545 !important;
+        color: #fff !important; /* Белый текст */
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 {% load static %}
 
@@ -8,28 +70,35 @@
         <h3 class="store-title sw-title">Каталог курсов</h3>
 
         <div class="courses-sections sw-sections">
-            {% for item in page_obj %}
-            <div class="courses-card">
-                {% if item.image %}
-                    <img src="{{ item.image.url }}" alt="{{ item.title }}" class="courses-card-img">
-                {% else %}
-                    <img src="{% static "images/item_default.svg" %}" alt="Курс" class="courses-card-img"/>
-                {% endif %}
-                <div class="courses-card-title">{{ item.title }}</div>
-                <div class="courses-card-desc">{{ item.description|truncatechars:150 }}</div>
-                <div class="courses-card-tags sw-tag">
-                    <object> 
-                        {% for tag in item.tags.all %}
-                            <a href="{% url 'academy:tag_details' tag.slug %}" class="courses-card-tag sw-tag">{{ tag }}</a>
-                            {% if not forloop.last %},{% endif %}
-                        {% endfor %}
-                    </object>
+            <div class="list-group">
+                {% for item in page_obj %}
+                <div class="program-card">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5 class="mb-3">{{ item.title }}</h5>
+                            <p><i class="bi bi-clock"></i> Срок обучения: <b>от {{ item.duration }} часов</b></p>
+                            <p><i class="bi bi-file-earmark-text"></i> Получаемый документ: <b>Диплом о профессиональной переподготовке</b></p>
+                            <p><i class="bi bi-book"></i> Обучение на базе: <b>{{ item.get_base_education_display }}</b></p>
+                        </div>
+                        <div class="text-end">
+                            {% if item.old_price %}
+                                <div class="old-price">от {{ item.old_price }} руб.</div>
+                                <div class="price">от {{ item.price }} руб.</div>
+                            {% else %}
+                                <div class="price">{{ item.price }} руб.</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end mt-3">
+                        <!-- <button class="btn btn-primary me-2">Оставить заявку</button> -->
+                        <a href="{% url 'academy:item_details' item.slug %}" class="list-group-item list-group-item-action w-100">
+                            <button class="btn btn-primary">Подробнее</button>
+                        </a>
+                    </div>
                 </div>
-                <a href="{% url 'academy:item_details' item.slug %}" class="sw-item">
-                    <button class="courses-card-btn store-card-btn sw-btn">Подробнее</button>
-                </a>
+                
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
 
         {% if page_obj %}

@@ -7,7 +7,8 @@ class ItemAdmin(admin.ModelAdmin):
     list_display = ('title', 'short_description', 'slug', 'price',
                     'old_price', 'is_available', 'tag_list',)
     search_fields = ('title', 'description', 'tags__name',)
-    list_filter = ('is_available', 'tags',)
+    list_filter = ('is_available', 'tags', 'base_education',)
+    prepopulated_fields = {'slug': ('title',)}
 
     def short_description(self, obj):
         if len(obj.description) > 100:
@@ -40,7 +41,7 @@ class ItemTagAdmin(admin.ModelAdmin):
         ) for o in obj.items.values()]
 
     short_description.short_description = 'Описание'
-    item_list.short_description = 'Список товаров'
+    item_list.short_description = 'Список курсов'
 
 
 admin.site.register(Item, ItemAdmin)

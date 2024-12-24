@@ -10,7 +10,7 @@ urlpatterns = [
     path('cart/', include('cart.urls')),
     path('checkout/', include('checkout.urls')),
     path('users/', include('users.urls')),
-    path('academy/', include('academy.urls')),
+    path('courses/', include('academy.urls')),
     path('news/', include('news.urls')),
     path('', include('django.contrib.auth.urls')),
     # path('', include('store.urls')),

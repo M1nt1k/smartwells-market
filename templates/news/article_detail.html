@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<head>
+    <title>{{ article.title }}</title>
+</head>
+    <section class="develop">
+        <div class="sw-width-wrapper" >
+            <div class="row w-100">
+                <div class="col-lg-8 mx-auto">
+                    <article class="w-100">
+                        <h3 class="sw-title">{{ article.title }}</h3>
+                        <div class="mb-3">
+                            <span class="badge bg-secondary">Автор: {{ article.author }}</span>
+                            <span class="badge bg-secondary">Дата: {{ article.published_date|date:"d.m.Y" }}</span>
+                        </div>
+                        {% if article.image %}
+                        <img src="{{ article.image.url }}" class="img-fluid mb-4" alt="{{ article.title }}">
+                        {% endif %}
+                        <p class="fs-5">{{ article.content }}</p>
+                    </article>
+                    <a href="{% url 'news:article_list' %}" class="btn btn-secondary mt-4">Назад к новостям</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

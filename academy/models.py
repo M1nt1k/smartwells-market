@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.utils.text import slugify
 from taggit.managers import TaggableManager
 from taggit.models import GenericTaggedItemBase, TagBase
 
@@ -30,6 +31,11 @@ class TaggedItem(GenericTaggedItemBase):
 
 
 class Item(models.Model):
+    BASE_EDUCATION_CHOICES = [
+        ('SPO', 'Среднее профессиональное образование'),
+        ('VO', 'Высшее образование'),
+    ]
+
     title = models.CharField(max_length=200, verbose_name='Название',)
     description = models.TextField(verbose_name='Описание',)
     slug = models.CharField(
@@ -58,12 +64,29 @@ class Item(models.Model):
         default=True,
         verbose_name='Доступно',
     )
+    base_education = models.CharField(
+        max_length=3,
+        choices=BASE_EDUCATION_CHOICES,
+        default='VO',
+        verbose_name="Образование на базе"
+    )
+    duration = models.CharField(
+        max_length=100,
+        default='100',
+        verbose_name='Срок обучения',
+    )
     tags = TaggableManager(through=TaggedItem, related_name="tagged_items", verbose_name='Категории',)
 
     def __str__(self):
         return self.title
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
 
     class Meta:
         ordering = ['-price']
-        verbose_name = 'Товар'
-        verbose_name_plural = 'Товары'
+        verbose_name = 'Курсы'
+        verbose_name_plural = 'Курсы'
+

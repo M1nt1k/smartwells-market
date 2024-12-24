@@ -6,3 +6,5 @@ db.*
 *.db
 __pychache__
 .env
+site.wsgi
+media/*

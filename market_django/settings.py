@@ -15,8 +15,8 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG')
 
-ALLOWED_HOSTS = ['*', 'smartwells.ru', '*.smartwells.ru', '85.15.189.199', 'localhost', '127.0.0.1']
-
+ALLOWED_HOSTS = ['*', 'smartwells.ru', '*.smartwells.ru', '85.15.189.199', 'localhost', '127.0.0.1', '141.8.192.26']
+CSRF_TRUSTED_ORIGINS = ['http://smartwells.ru']
 
 # Application definition
 
@@ -71,18 +71,18 @@ WSGI_APPLICATION = 'market_django.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
     'default': {
-		'ENGINE': 'django.db.backends.mysql',
-		'NAME': config('DB_NAME'),
-		'HOST': config('DB_HOST'),
-		'PORT': config('DB_PORT'),
-		'USER': config('DB_USER'),
-		'PASSWORD': config('DB_PASSWORD')
-	}
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+    # 'default': {
+	# 	'ENGINE': 'django.db.backends.mysql',
+	# 	'NAME': config('DB_NAME'),
+	# 	'HOST': config('DB_HOST'),
+	# 	'PORT': config('DB_PORT'),
+	# 	'USER': config('DB_USER'),
+	# 	'PASSWORD': config('DB_PASSWORD')
+	# }
 }
 
 
@@ -123,6 +123,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+# STATIC_ROOT = os.path.join (BASE_DIR, "static")
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
@@ -150,7 +151,10 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')   # email, с которого
 
 TAGGIT_CASE_INSENSITIVE = True
 
-LOGIN_URL = 'users:keycloak_login'
+if DEBUG:
+    LOGIN_URL = 'users:login'
+else:
+    LOGIN_URL = 'users:keycloak_login'
 LOGIN_REDIRECT_URL = 'academy:home'
 
 KEYCLOAK_SERVER_URL = config('KEYCLOAK_SERVER_URL')

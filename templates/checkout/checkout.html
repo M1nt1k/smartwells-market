@@ -6,86 +6,97 @@
 {% endblock %}
 
 {% block content %}
-<h1>Оформление заказа</h1>
-{% if messages %}
-<div class="messages-container">
-  <ul class="messages">
-    {% for message in messages %}
-      <div {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
-    {% endfor %}
-  </ul>
-</div>
-{% endif %}
-<form method="post" action="{% url 'checkout:create_order'%}">
-  {% csrf_token %}
-  <section>
-  <div class="row">
-    <div class="col-md-8" style="width: 60%; padding-right: 20px;">
-      <div><h2>Доставка</h2></div>
-      {% for field in form %}
-        {% if field.name != 'payment_method' %}
-          <div class="form-group">
-            {{ field }}
-            <div class="text-danger error-message">
-              {% for error in field.errors %}
-                <span>{{ error }}</span>
-              {% endfor %}
-            </div>
-          </div>
-        {% endif %}
-      {% endfor %}
+<div class="sw-width-wrapper">
+    <h3 class="sw-title">Оформление заказа</h3>
+    {% if messages %}
+    <div class="messages-container">
+        <ul class="messages">
+            {% for message in messages %}
+                <div {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+            {% endfor %}
+        </ul>
     </div>
-    <div class="col-md-4" style="width: 40%;">
-      <h2>Ваш заказ</h2>
-      {% if cart.items.exists %}
-        <div class="table-wrapper">
-          <table class="alt">
-            <thead>
-              <tr>
-                <th>Название</th>
-                <th>Количество</th>
-                <th>Цена</th>
-              </tr>
+    {% endif %}
+
+    <form id="order-form" class="mb-4 w-100" action="{% url 'checkout:create_order'%}">
+        {% csrf_token %}
+        <!-- Личные данные -->
+
+        <div class="mb-3">
+            <label for="id_last_name" class="form-label">Фамилия</label>
+            <input type="text" class="form-control" name="last_name" id="id_last_name" placeholder="Введите фамилию" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="id_first_name" class="form-label">Имя</label>
+            <input type="text" name="first_name" class="form-control" id="id_first_name" placeholder="Введите имя" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_email" class="form-label">Электронная почта</label>
+            <input type="email" class="form-control" id="id_email" placeholder="Введите вашу почту" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_phone" class="form-label">Номер телефона</label>
+            <input type="tel" class="form-control" id="id_phone" placeholder="+7 (900) 123-45-67" required>
+        </div>
+
+        <!-- Таблица курсов -->
+        <h3 class="mt-4">Курсы</h3>
+        {% if cart.items.exists %}
+        <table class="table table-bordered table-striped mt-3">
+            <thead class="table-primary">
+            <tr>
+                <th>Название курса</th>
+                <th class="text-center">Количество</th>
+                <th class="text-center">Цена (₽)</th>
+            </tr>
             </thead>
             <tbody>
-              {% for cart_item in cart.items.all %}
-              <tr>
-                <td>{{ cart_item.item.title|truncatechars:20 }}</td>
-                <td>
-                    {{ cart_item.quantity }}
-                </td>
-                <td>{{ cart_item.total_price }}</td>
-              </tr>
-              {% endfor %}
+            {% for cart_item in cart.items.all %}
+                <tr>
+                    <td>Курс "{{ cart_item.item.title|truncatechars:20 }}"</td>
+                    <td class="text-center">{{ cart_item.quantity }}</td>
+                    <td class="text-center">{{ cart_item.total_price }}</td>
+                </tr>
+            {% endfor %}
             </tbody>
             <tfoot>
-              <tr>
-                <td colspan="2"></td>
-                <td><b>{{ cart.total_price }}</b></td>
-              </tr>
+            <tr>
+                <td colspan="2" class="text-end fw-bold">Сумма заказа:</td>
+                <td class="text-center fw-bold">{{ cart.total_price }}</td>
+            </tr>
             </tfoot>
-          </table>
+        </table>
+        {% else %}
+            <p>Корзина пустая</p>
+            <a href="{% url 'academy:home' %}"  class="btn btn-primary">Вернуться на главную</a>
+        {% endif %}
+
+        <!-- Способ оплаты -->
+        <div class="mt-4">
+            <h3>Способ оплаты</h3>
+
+            <select class="form-select mt-3" name="payment_method" placeholder="" id="id_payment_method">
+                <option value="" disabled selected>Выберите способ оплаты</option>
+                <option value="card_online">Картой онлайн</option>
+                <option value="invoice">Счёт для юридического лица</option>
+            </select>
         </div>
-      {% else %}
-        Корзина пустая
-        <a href="{% url 'store:home' %}"  style="margin-bottom: 100px; margin-top: 50px;" class="button">Вернуться на главную</a>
-      {% endif %}
-      <div><h2>Выберите способ оплаты</h2></div>
-      {{ form.payment_method }}
-      <!-- Всплывающее окно для опции "Картой онлайн" -->
-      {% include 'checkout/popup.html' %}
-    </div>
-  </section>
-    <div class="actions" style="text-align: justify; margin-top: 100px;">
-      <input type="reset" value="Сбросить" style="float: left;">
-      {% if cart.items.exists %}
-        <input type="submit" value="Оставить заказ" class="primary" style="float: right;">
-      {% else %}
-        <input type="submit" value="Оставить заказ" class="primary disabled" style="float: right;">
-      {% endif %}
-    </div>
-  </div>
-</form>
+
+        <!-- Кнопка для подтверждения заказа -->
+        <div class="text-end mt-4">
+            <input type="reset" value="Сбросить" class="btn btn-primary">
+            {% if cart.items.exists %}
+                <button type="submit" class="btn btn-primary">Подтвердить заказ</button>
+            {% else %}
+                <button type="submit" class="btn btn-primary disabled">Подтвердить заказ</button>
+            {% endif %}
+        </div>
+
+    </form>
+</div>
 {% endblock %}
 
 {% block js %}

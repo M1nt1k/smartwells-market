@@ -1,47 +1,99 @@
 {% extends "base.html" %}
 
+{% block css %}
+<style>
+    .program-card {
+        border: 1px solid #cdd0d4;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .program-card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .price {
+        font-size: 18px;
+        color: #9f0000;
+        font-weight: bold;
+    }
+
+    .old-price {
+        text-decoration: line-through;
+        color: gray;
+    }
+
+    .discount-badge {
+        background: #ffc107;
+        color: #000;
+        font-size: 12px;
+        padding: 3px 6px;
+        border-radius: 3px;
+    }
+
+    .btn-primary {
+        background-color: #dc3545 !important; /* Красный */
+        border-color: #dc3545 !important;
+    }
+
+    .btn-primary:hover {
+        background-color: #c82333 !important; /* Более темный красный */
+        border-color: #bd2130 !important;
+    }
+
+    .text-primary {
+        color: #dc3545 !important; /* Красный текст */
+    }
+
+    .bg-primary {
+        background-color: #dc3545 !important; /* Красный фон */
+    }
+
+    /* Карточки */
+    .card {
+        border: 1px solid #dc3545 !important; /* Красная рамка */
+    }
+
+    .card-header {
+        background-color: #dc3545 !important;
+        color: #fff !important; /* Белый текст */
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 {% load static %}
 
 <div class="item-detail">
     <div class="sw-width-wrapper">
-        <div class="item-details-sections sw-sections">
-            {% if item.image %}
-                <img class="item-detail-img" src="{{ item.image.url }}" alt=""/>
-            {% else %}
-                <img class="item-detail-img" src="{% static "images/item_default.svg" %}" alt="" />
-            {% endif %}
+        <div class="item-details-sections">
+            <!-- Название курса и основная информация -->
+            <div class="course-header">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <h1>{{ item.title }}</h1>
+                        <p><i class="bi bi-clock"></i> Срок обучения: <b>{{ item.duration }}</b></p>
+                        <p><i class="bi bi-file-earmark-text"></i> Получаемый документ: <b>Диплом о профессиональной переподготовке</b></p>
+                        <p><i class="bi bi-book"></i> Обучение на базе: <b>{{ item.get_base_education_display }}</b></p>
+                    </div>
+                    <div class="col-lg-3 text-end">
+                        {% if item.old_price %}
+                        <div class="old-price">{{ item.old_price }} руб.</div>
+                        {% endif %}
+                        <div class="price">{{ item.price }} руб.</div>
 
-            <div class="item-detail-section">
-                <h2 class="item-detail-title sw-title">{{ item.title }}</h2>
-
-                <div class="item-detail-categories">
-                    Категории: 
-                    {% for tag in item.tags.all %}
-                        <a class="sw-tag" href="{% url 'academy:tag_details' tag.slug %}">{{ tag }}</a>
-                        {% if not forloop.last %},{% endif %}
-                    {% endfor %}
+                        <a href="{% url 'cart:add_to_cart' item.slug %}">
+                            <button class="btn btn-primary mt-3 w-100">Добавить в корзину</button>
+                        </a>
+                    </div>
                 </div>
+            </div>
 
-                <div class="item-detail-description">
-                    Описание:<br>
-                    {{ item.description }}
-                </div>
-
-                <div class="item-detail-price">
-                    Цена:&nbsp;
-                    {% if item.old_price %}
-                        <p>{{ item.price }}&nbsp;₽ <span class="discount">&nbsp;{{ item.old_price }}&nbsp;</span></p>
-                    {% else %}
-                        <p>{{ item.price }} ₽</p>
-                    {% endif %}
-                </div>
-
-                <div class="item-detail-buy">
-                    <a href="{% url 'cart:add_to_cart' item.slug %}" class="item-detail-buy-btn" style="margin-top:10px;">
-                        Купить
-                    </a>
-                </div>
+            <!-- Подробное описание курса -->
+            <div class="mb-5">
+                <h2>Описание курса</h2>
+                <p>{{ item.description }}</p>
             </div>
         </div>
     </div>
