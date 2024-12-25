@@ -2,50 +2,91 @@
 
 {% load static %}
 {% block css %}
-<link rel="stylesheet" href="{% static "assets/css/profile.css"%}" />
+<style>
+    .text-red {
+        color: #d9534f;
+    }
+    .bg-red {
+        background-color: #f8d7da;
+    }
+    .status-pending {
+        color: #ffc107;
+        font-weight: bold;
+    }
+    .status-completed {
+        color: #28a745;
+        font-weight: bold;
+    }
+    .status-cancelled {
+        color: #dc3545;
+        font-weight: bold;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
-<h1>Ваши заказы</h1>
-{% if orders %}
-  {% for order in orders %}
-  <div class="order-wrapper">
-    <div class="order-header">
-      <p>Адрес: {{ order.shipping_address }}</p>
-      <p><strong>Статус заказа: {{ order.get_status_display }}</strong></p>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Ваши заказы</h1>
+
+    {% if orders %}
+    {% for order in orders %}
+    <!-- Карточка для каждого заказа -->
+    <div class="card mb-4">
+        <div class="card-header bg-red text-red">
+            <h4 class="mb-0">Заказ №{{ order.id }}</h4>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item"><strong>ФИО:</strong> {{ order.shipping_address.get_full_name }}</li>
+                <li class="list-group-item"><strong>Электронная почта:</strong> {{ order.shipping_address.email }}</li>
+                <li class="list-group-item"><strong>Номер телефона:</strong> {{ order.shipping_address.phone }}</li>
+                <li class="list-group-item">
+                    <strong>Статус заказа:</strong>
+                    <span class="
+                        {% if order.status == 'processing' %}status-pending
+                        {% elif order.status == 'completed' %}status-completed
+                        {% elif order.status == 'cancelled' %}status-cancelled
+                        {% endif %}
+                    ">
+                        {{ order.get_status_display }}
+                    </span>
+                </li>
+            </ul>
+
+            <!-- Таблица с товарами -->
+            <h5 class="mt-3">Состав заказа</h5>
+            <table class="table table-bordered mb-1">
+                <thead class="table-light">
+                <tr>
+                    <th>Название курса</th>
+                    <th class="text-center">Количество</th>
+                    <th class="text-center">Цена (₽)</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in order.items.all %}
+                <tr>
+                    <td>{{ item.item.title }}</td>
+                    <td class="text-center">{{ item.quantity }}</td>
+                    <td class="text-center">{{ item.total_price }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="2" class="text-end fw-bold">Итоговая сумма:</td>
+                    <td class="text-center fw-bold">{{ order.total_price }}</td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
-      <div class="table-wrapper">
-      <table class="alt">
-        <thead>
-          <tr>
-            <th>Название</th>
-            <th>Количество</th>
-            <th>Цена</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for order_item in order.items.all %}
-          <tr>
-            <td>{{ order_item.item.title }}</td>
-            <td>
-                {{ order_item.quantity }}
-            </td>
-            <td>{{ order_item.total_price }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="2"></td>
-            <td><b>{{ order.total_price }}</b></td>
-          </tr>
-        </tfoot>
-      </table>
-      </div>
-    </div>
-    {% if not forloop.last %}<hr>{% endif %}
-  {% endfor %}
-{% else %}
-  <p>У вас пока нет заказов.</p>
-{% endif %}
+
+    
+    {% endfor %}
+    {% else %}
+    <p>У вас пока нет заказов.</p>
+    {% endif %}
+</div>
+
 {% endblock %} 

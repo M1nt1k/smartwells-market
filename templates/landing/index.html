@@ -69,14 +69,6 @@
                     {% endif %}
                     <div class="courses-card-title">{{ item.title }}</div>
                     <div class="courses-card-desc">{{ item.description|truncatechars:150 }}</div>
-                    <div class="courses-card-tags sw-tag">
-                        <object> 
-                            {% for tag in item.tags.all %}
-                                <a href="{% url 'academy:tag_details' tag.slug %}" class="courses-card-tag sw-tag">{{ tag }}</a>
-                                {% if not forloop.last %},{% endif %}
-                            {% endfor %}
-                        </object>
-                    </div>
                     <a href="{% url 'academy:item_details' item.slug %}" class="sw-item">
                         <button class="courses-card-btn store-card-btn sw-btn">Подробнее</button>
                     </a>

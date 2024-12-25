@@ -1,47 +1,81 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block css %}
+<style>
+    .profile-header {
+        color: #d9534f; /* Красный оттенок для заголовка */
+        font-weight: bold;
+    }
+    .profile-card {
+        background-color: #f8f9fa; /* Светло-серый фон карточки */
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <section class="profile">
-    <div class="sw-width-wrapper">
-        <h1 class="store-title sw-title">Профиль</h1>
-
-        <div class="profile-section sw-section">
-            <img src="{% static 'images/profile.png' %}" alt="" class="img-thumbnail sw-avatar">
-
-            <div class="profile-user">
-                <p class="sw-subtitle profile-user-welcome">Здравствуйте, <strong>{{ request.user.get_username }}</strong>!</p>
-                <p class="sw-subtitle profile-user-welcome">Всего у вас <strong>{{ request.user.orders.count }}</strong> заказов</p>
+    <div class="container mt-5 mb-5">
+        <!-- Приветствие -->
+        <h1 class="text-center profile-header">Здравствуйте, {{ request.user.get_username }}!</h1>
+    
+        <!-- Основная карточка профиля -->
+        <div class="card profile-card p-4 mt-4">
+            <div class="card-body">
+                <h4 class="card-title text-center mb-4">Информация о профиле</h4>
+    
+                <!-- Форма для редактирования данных -->
+                <form action="/update-profile" method="POST">
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="first_name" class="form-label">Имя</label>
+                            <input type="text" class="form-control" id="id_first_name" name="first_name" value="{{ request.user.first_name }}">
+                        </div>
+                        <div class="col-6">
+                            <label for="last_name" class="form-label">Фамилия</label>
+                            <input type="text" class="form-control" id="id_last_name" name="last_name" value="{{ request.user.last_name }}">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="username" class="form-label">Никнейм</label>
+                            <input type="text" class="form-control" id="id_username" name="username" value="{{ request.user.get_username }}">
+                        </div>
+                        <div class="col-6">
+                            <label for="email" class="form-label">Почта</label>
+                            <input type="email" class="form-control" id="id_email" name="email" value="{{ request.user.email }}" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="phone" class="form-label">Номер телефона</label>
+                            <input type="tel" class="form-control" id="id_phone" name="phone" value="{{ request.user.phone }}">
+                        </div>
+                        <div class="col-6">
+                            <label for="order_count" class="form-label">Количество заказов</label>
+                            <input type="number" class="form-control" id="order_count" name="order_count" value="{{ request.user.orders.count }}" disabled>
+                        </div>
+                    </div>
+    
+                    <!-- Кнопка для перехода к заказам -->
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <a href="{% url 'users:user_orders' %}" class="btn btn-outline-primary btn-sm">Перейти к заказам</a>
+                        </div>
+                    </div>
+    
+                    <!-- Кнопки управления -->
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="submit" class="btn btn-success">Сохранить изменения</button>
+                        <a href="{% url 'users:logout' %}" class="btn btn-danger">Выйти</a>
+                        <a href="{% url 'users:password_change' %}" class="btn btn-secondary">Сменить пароль</a>
+                    </div>
+                </form>
             </div>
-
-            <div class="profile-info">
-                <div class="profile-info-block">
-                    <div class="input-group mb-3 profile-info-block-input">
-                        <span class="input-group-text profile-info-block-title" id="inputGroup-sizing-sm">Имя</span>
-                        <input type="text" value="{{ request.user.first_name }}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                    </div>
-                    <div class="input-group mb-3 profile-info-block-input">
-                        <span class="input-group-text profile-info-block-title" id="inputGroup-sizing-sm">Фамилия</span>
-                        <input type="text" value="{{ request.user.last_name }}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                    </div>
-                </div>
-                <div class="profile-info-block">
-                    <div class="input-group mb-3 profile-info-block-input">
-                        <span class="input-group-text profile-info-block-title" id="inputGroup-sizing-sm">Никнейм</span>
-                        <input type="text" value="{{ request.user.get_username }}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                    </div>
-                    <div class="input-group mb-3 profile-info-block-input">
-                        <span class="input-group-text profile-info-block-title" id="inputGroup-sizing-sm">Почта</span>
-                        <input type="text" value="{{ request.user.email }}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                    </div>
-                </div>
-            </div>
-            <p>Ваши заказы: <a href="{% url 'users:user_orders' %}">Перейти к заказам</a></p>
-            <p>Если вы хотите выйти из системы: <a href="{% url 'users:logout' %}">Выйти</a></p>
         </div>
-
-        
     </div>
 </section>
-<p>Если вы хотите сменить пароль: <a href="{% url 'users:password_change' %}">Сменить пароль</a></p>
 {% endblock %}

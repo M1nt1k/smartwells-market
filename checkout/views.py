@@ -6,6 +6,8 @@ from cart.views import Cart
 from .forms import OrderCreateForm
 from .models import Order, OrderItem, ShippingAddress
 
+from pprint import pprint
+
 
 @login_required
 def checkout(request):
@@ -50,8 +52,6 @@ def create_order(request):
                 last_name=form.cleaned_data['last_name'],
                 email=form.cleaned_data['email'],
                 phone=form.cleaned_data['phone'],
-                address_line_1=form.cleaned_data['address_line_1'],
-                address_line_2=form.cleaned_data['address_line_2'],
                 order=order,
             )
 

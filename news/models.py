@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 
 class Article(models.Model):
@@ -20,3 +21,7 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+    
+    class Meta:
+        verbose_name = _("Статья")
+        verbose_name_plural = _("Статьи")

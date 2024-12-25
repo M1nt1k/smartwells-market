@@ -2,7 +2,7 @@
 
 {% load static %}
 {% block css %}
-<link rel="stylesheet" href="{% static "assets/css/checkout.css"%}" />
+<!-- <link rel="stylesheet" href="{% static "assets/css/checkout.css"%}" /> -->
 {% endblock %}
 
 {% block content %}
@@ -18,10 +18,10 @@
     </div>
     {% endif %}
 
-    <form id="order-form" class="mb-4 w-100" action="{% url 'checkout:create_order'%}">
+    <form id="order-form" class="mb-4 w-100" method="post" action="{% url 'checkout:create_order'%}">
         {% csrf_token %}
-        <!-- Личные данные -->
 
+        <!-- Личные данные -->
         <div class="mb-3">
             <label for="id_last_name" class="form-label">Фамилия</label>
             <input type="text" class="form-control" name="last_name" id="id_last_name" placeholder="Введите фамилию" required>
@@ -34,12 +34,12 @@
 
         <div class="mb-3">
             <label for="id_email" class="form-label">Электронная почта</label>
-            <input type="email" class="form-control" id="id_email" placeholder="Введите вашу почту" required>
+            <input type="email" class="form-control" id="id_email" name="email" placeholder="Введите вашу почту" required>
         </div>
 
         <div class="mb-3">
             <label for="id_phone" class="form-label">Номер телефона</label>
-            <input type="tel" class="form-control" id="id_phone" placeholder="+7 (900) 123-45-67" required>
+            <input type="text" class="form-control" name="phone" id="id_phone" placeholder="+7 (900) 123-45-67" required>
         </div>
 
         <!-- Таблица курсов -->
@@ -89,9 +89,9 @@
         <div class="text-end mt-4">
             <input type="reset" value="Сбросить" class="btn btn-primary">
             {% if cart.items.exists %}
-                <button type="submit" class="btn btn-primary">Подтвердить заказ</button>
+                <input type="submit" value="Подтвердить заказ" class="btn btn-primary">
             {% else %}
-                <button type="submit" class="btn btn-primary disabled">Подтвердить заказ</button>
+                <input type="submit" value="Подтвердить заказ" class="btn btn-primary disabled">
             {% endif %}
         </div>
 

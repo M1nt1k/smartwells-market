@@ -10,18 +10,18 @@ from academy.paginator import paginator
 def index(request):
     carousel_items = [
         {
-            'title': 'Первая фотография',
-            'description': 'Описание первой фотографии.',
+            'title': 'Инновационные решения для бурения скважин',
+            'description': 'Используйте нашу систему мониторинга, которая автоматизирует процессы бурения и улучшает контроль на каждом этапе.',
             'image_url': '/static/assets/images/main/carousel/sea-platform.jpg',
         },
         {
-            'title': 'Вторая фотография',
-            'description': 'Описание второй фотографии.',
+            'title': 'Современные навыки для специалистов нефтегазовой отрасли',
+            'description': 'Обучение для инженеров и специалистов отрасли. Развивайте профессиональные навыки с использованием актуальных технологий.',
             'image_url': '/static/assets/images/main/carousel/logic-controller.jpg',
         },
         {
-            'title': 'Третья фотография',
-            'description': 'Описание третьей фотографии.',
+            'title': 'Поддержка на каждом этапе',
+            'description': 'Получите экспертные консультации и техническую поддержку для внедрения решений и обучения вашей команды.',
             'image_url': '/static/assets/images/main/carousel/talking-about-business.jpg',
         },
     ]

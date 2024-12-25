@@ -14,11 +14,17 @@ class ItemTag(TagBase):
     description = models.TextField(
         blank=True,
         verbose_name='Описание',
+        default=''
         )
 
     class Meta:
         verbose_name = _("Категория")
         verbose_name_plural = _("Категории")
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
 
 class TaggedItem(GenericTaggedItemBase):
@@ -46,7 +52,7 @@ class Item(models.Model):
     price = models.DecimalField(
         max_digits=8,
         decimal_places=2,
-        verbose_name='Новая цена',
+        verbose_name='Цена',
     )
     old_price = models.DecimalField(
         max_digits=8,
@@ -61,7 +67,7 @@ class Item(models.Model):
         blank=True,
     )
     is_available = models.BooleanField(
-        default=True,
+        default=False,
         verbose_name='Доступно',
     )
     base_education = models.CharField(

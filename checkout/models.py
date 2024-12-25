@@ -7,16 +7,13 @@ from academy.models import Item
 
 class Order(models.Model):
     PAYMENT_METHOD_CHOICES = [
-        ('cash_courier', 'Наличными курьеру'),
-        ('card_courier', 'Картой курьеру'),
+        ('invoice', 'Счёт для юридического лица'),
         ('card_online', 'Картой онлайн'),
     ]
     STATUS_CHOICES = [
-        ('created', 'Создан'),
         ('processing', 'Обрабатывается'),
-        ('shipped', 'Отправлен'),
-        ('delivered', 'Доставлен'),
-        ('canceled', 'Отменен'),
+        ('completed', 'Выполнен'),
+        ('cancelled', 'Отменен'),
     ]
     payment_method = models.CharField(
         max_length=20,
@@ -36,7 +33,7 @@ class Order(models.Model):
     status = models.CharField(
         max_length=20,
         choices=STATUS_CHOICES,
-        default='created',
+        default='processing',
         verbose_name='Статус',
     )
 
@@ -87,18 +84,18 @@ class ShippingAddress(models.Model):
     last_name = models.CharField(max_length=50, verbose_name='Фамилия',)
     email = models.EmailField(verbose_name='Почта',)
     phone = models.CharField(max_length=20, verbose_name='Телефон',)
-    address_line_1 = models.CharField(max_length=200, verbose_name='Адрес',)
-    address_line_2 = models.CharField(max_length=200, blank=True, null=True, verbose_name='Адрес (дополнительно)',)
     order = models.OneToOneField(
         Order, on_delete=models.CASCADE, related_name='shipping_address', verbose_name='Заказ',)
 
     class Meta:
-        verbose_name = 'Адрес доставки'
-        verbose_name_plural = 'Адреса доставки'
+        verbose_name = 'Данные покупки'
+        verbose_name_plural = 'Данные покупки'
+
+    def get_full_name(self):
+        return f'{self.last_name} {self.first_name}'
 
     def __str__(self):
         return f"""
-        {self.address_line_1} {self.address_line_2}
         Для: {self.first_name} {self.last_name},
         Почта: {self.email},
         Телефон: {self.phone}

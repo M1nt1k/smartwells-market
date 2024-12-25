@@ -1,17 +1,80 @@
 {% extends 'base.html' %}
 
+{% block css %}
+<style>
+    /* Кастомные стили в красных тонах */
+    .text-red {
+        color: #d9534f;
+    }
+    .bg-red {
+        background-color: #f8d7da;
+    }
+    .btn-red {
+        background-color: #d9534f;
+        border-color: #d43f3a;
+        color: white;
+    }
+    .btn-red:hover {
+        background-color: #c9302c;
+        border-color: #ac2925;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
-<h2>Спасибо за ваш заказ!</h2>
-<p><strong>Содержимое заказа:</strong>
-{% for item in order.items.all %}
-  <li>{{ item.quantity }} х {{ item.item.title }}</li>
-{% endfor %}
-<br>
-<p>На сумму <b>{{ order.total_price }}</b> рублей.</p>
-</p>
-<p><strong>Привезем по адресу:</strong></p>
-<p>{{ order.shipping_address }}</p>
-<div>
-  <a href="{% url 'users:user_orders' %}" class="button">Мои заказы</a>
+<div class="sw-width-wrapper">
+    <!-- Заголовок -->
+    <div class="text-center">
+        <h1 class="text-success">Спасибо за ваш заказ!</h1>
+        <p class="text-muted">Мы благодарим вас за покупку и уже готовим ваш заказ.</p>
+    </div>
+
+    <!-- Информация о заказе -->
+    <div class="card mt-4">
+        <div class="card-header bg-red text-red">
+            <h4 class="mb-0">Информация о заказе</h4>
+        </div>
+        <div class="card-body">
+            <!-- Содержимое заказа -->
+            <h5 class="mb-3">Содержимое заказа</h5>
+            <table class="table table-bordered">
+                <thead class="table-light">
+                <tr>
+                    <th>Название курса</th>
+                    <th class="text-center">Количество</th>
+                    <th class="text-center">Цена (₽)</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in order.items.all %}
+                    <tr>
+                        <td>Курс "{{ item.item.title }}"</td>
+                        <td class="text-center">{{ item.quantity }}</td>
+                        <td class="text-center">{{ item.total_price }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="2" class="text-end fw-bold">Итоговая сумма:</td>
+                    <td class="text-center fw-bold">{{ order.total_price }}</td>
+                </tr>
+                </tfoot>
+            </table>
+
+            <!-- Информация о заказчике -->
+            <h5 class="mt-4 mb-3">Информация о заказчике</h5>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>ФИО:</strong> {{ order.shipping_address.get_full_name }}</li>
+                <li class="list-group-item"><strong>Электронная почта:</strong> {{ order.shipping_address.email }}</li>
+                <li class="list-group-item"><strong>Номер телефона:</strong> {{ order.shipping_address.phone }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Кнопка "Мои заказы" -->
+    <div class="text-center mt-4">
+        <a href="{% url 'users:user_orders' %}" class="btn btn-red btn-lg">Мои заказы</a>
+    </div>
 </div>
 {% endblock %}

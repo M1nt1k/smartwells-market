@@ -28,6 +28,7 @@ class ItemAdmin(admin.ModelAdmin):
 
 class ItemTagAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug', 'short_description', 'item_list',)
+    prepopulated_fields = {'slug': ('name',)}
 
     def short_description(self, obj):
         if len(obj.description) > 100:
