@@ -8,3 +8,5 @@ __pychache__
 .env
 site.wsgi
 media/*
+migrater
+# migrater/*

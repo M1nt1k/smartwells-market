@@ -15,7 +15,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG')
 
-ALLOWED_HOSTS = ['*', 'smartwells.ru', '*.smartwells.ru', '85.15.189.199', 'localhost', '127.0.0.1', '141.8.192.26']
+ALLOWED_HOSTS = ['smartwells.ru', '*.smartwells.ru', '85.15.189.199', 'localhost', '127.0.0.1', '141.8.192.93']
 CSRF_TRUSTED_ORIGINS = ['http://smartwells.ru']
 
 # Application definition
