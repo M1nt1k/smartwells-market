@@ -13,7 +13,6 @@ urlpatterns = [
     path('courses/', include('academy.urls')),
     path('news/', include('news.urls')),
     path('', include('django.contrib.auth.urls')),
-    # path('', include('store.urls')),
 ]
 
 if settings.DEBUG:

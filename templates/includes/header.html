@@ -14,15 +14,26 @@
 
     {% if request.user.is_authenticated %}
         <div class="sw-header-user">
+            {% if request.path == '/courses/' %}
+                <a href="{% url 'academy:to_academy' %}">
+                    <img src="{% static 'images/academy.png' %}" style="width: 32px; height: 32px;" alt="academy">
+                </a>
+            {% endif %}
+
             <a href="{% url 'cart:cart' %}">
                 <img src="{% static 'images/cart.png' %}" style="width: 32px; height: 32px;" alt="cart">
             </a>
 
             <a href="{% url 'users:profile' %}">
-                <img src="{% static 'images/user.png' %}" style="width: 32px; height: 32px;" alt="cart">
+                <img src="{% static 'images/user.png' %}" style="width: 32px; height: 32px;" alt="user">
             </a>
         </div>
     {% else %}
-        <button class="sw-header-sign-up"><a href="{% url 'users:keycloak_login' %}" style="text-decoration: none;">Войти</a></button>
+        <div class="sw-header-user">
+            {% if request.path == '/courses/' %}
+                <a href="{% url 'academy:to_academy' %}" class="btn btn-primary">Академия</a>
+            {% endif %}
+            <a href="{% url 'users:keycloak_login' %}" class="btn btn-primary" style="text-decoration: none;">Войти</a>
+        </div>
     {% endif %}
 </div>

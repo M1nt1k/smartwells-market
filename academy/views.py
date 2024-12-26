@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponseRedirect
 
 from .models import Item, ItemTag
 from .paginator import paginator
@@ -37,6 +38,12 @@ def tag_list(request):
         'page_obj': paginator(request, tags, 6),
     }
     return render(request, 'academy/tag_list.html', context)
+
+
+def redirect_to_academy(request):
+    print("Redirect is working")  # Отладка
+    subdomain_url = "http://academy.smartwells.ru"
+    return HttpResponseRedirect(subdomain_url)
 
 
 def index(request):
